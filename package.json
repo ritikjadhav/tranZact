@@ -1,5 +1,5 @@
 {
-  "name": "tranZact_payment_app",
+  "name": "tranzact_payment_app",
   "private": true,
   "scripts": {
     "build": "turbo build",
