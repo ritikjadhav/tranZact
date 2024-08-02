@@ -1,8 +1,11 @@
 import CredentialsProvider from 'next-auth/providers/credentials'
+import GoogleProvider from "next-auth/providers/google"
 import bcrypt from 'bcrypt'
 import prisma from '@tranzact/db'
 import { JWT } from 'next-auth/jwt'
 import { Session } from 'next-auth'
+import { SessionWithUserId } from '../types'
+import { CredentialsType } from '../types/index'
 
 export const authOptions = {
     providers: [
@@ -12,7 +15,10 @@ export const authOptions = {
                 phone: { label: 'Phone number', type: 'text', placeholder: '8888345678'},
                 password: { label: 'Password', type: 'password', placeholder: ''}
             },
-            async authorize(credentials: any) {
+            async authorize(credentials: CredentialsType | undefined) {
+                if (!credentials || !credentials.phone || !credentials.password) {
+                    return null
+                }
                 const hashedPassword = await bcrypt.hash(credentials?.password, 10)
                 const existingUser = await prisma.user.findFirst({
                     where:{
@@ -51,15 +57,18 @@ export const authOptions = {
 
                 return null
             }
-        })
+        }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID || '',
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET || ''
+        })        
     ],
     callbacks: {
-        async session({ token, session }: any) {
-            if (session && session.user) {
-                session.user.id = token.sub
-            }
+        async session({ token, session }: { token: JWT, session: Session }): Promise<SessionWithUserId> {
+            const sessionWithUserId = session as SessionWithUserId
+            sessionWithUserId.user.id = token.sub || ''
 
-            return session
+            return sessionWithUserId
         }
     }
 }

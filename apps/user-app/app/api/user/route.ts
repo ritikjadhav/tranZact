@@ -5,8 +5,9 @@ import { NextResponse } from 'next/server';
 export const GET = async () => {
     await prisma.user.create({
         data: {
-            email: 'ritik@gmail.com',
-            name: 'Ritik'
+            phone: '8888727412',
+            password: 'ritik',
+            auth_type: 'Credentials'
         }
     })
     return NextResponse.json({ message: 'Hi there!'})
