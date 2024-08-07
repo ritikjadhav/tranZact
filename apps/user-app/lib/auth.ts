@@ -16,7 +16,7 @@ export const authOptions = {
                 password: { label: 'Password', type: 'password', placeholder: ''}
             },
             async authorize(credentials: CredentialsType | undefined) {
-                if (!credentials || !credentials.phone || !credentials.password) {
+                if (!credentials?.phone || !credentials?.password) {
                     return null
                 }
                 const hashedPassword = await bcrypt.hash(credentials?.password, 10)
