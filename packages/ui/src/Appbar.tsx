@@ -11,7 +11,7 @@ interface AppbarProps {
 
 export const Appbar = ({ user, onSignin, onSignout }: AppbarProps) => {
     return (
-        <div className="flex justify-between border-b px-10 py-3 dark:bg-darkBackground">
+        <div className="flex justify-between shadow-md px-10 py-3 dark:bg-darkBackground">
             <div className="flex flex-col justify-center dark:text-white font-semibold text-3xl">
                 TranZact
             </div>

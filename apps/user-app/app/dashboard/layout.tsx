@@ -1,19 +1,39 @@
 import { SidebarItem } from '@repo/ui/SidebarItem'
-import { IconBrandTabler } from "@tabler/icons-react";
+import { IconHome, IconTransfer, IconHistory } from "@tabler/icons-react";
 
-export default function Layout({ children}: Readonly<{
+export default function Layout({ children }: Readonly<{
     children: React.ReactNode
 }>) {
-    const link = {
-        label: "Dashboard",
-        href: "#",
-        icon: (
-           <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-        ),
-     }
+    const links = [
+        {
+            label: "Dashboard",
+            href: "/dashboard",
+            icon: (
+                <IconHome className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+            ),
+        },
+        {
+            label: "Transfer",
+            href: "/transfer",
+            icon: (
+                <IconTransfer className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+            ),
+        },
+        {
+            label: "Transactions",
+            href: "#",
+            icon: (
+                <IconHistory className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+            ),
+        }
+    ]
 
-    return <div className='border-l min-h-screen'>
-        <SidebarItem link={link}/>
-        {children}
+    return <div className='md:flex md:mt-6 md:px-12'>
+        <div className='flex flex-col justify-center'>
+            <SidebarItem links={links} />
+        </div>
+        <div className='w-screen'>
+            {children}
+        </div>
     </div>
 }

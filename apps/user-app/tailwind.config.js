@@ -12,9 +12,10 @@ module.exports = {
       colors: {
           'darkBackground': '#000000',
           'darkPages': '#282A3A',
-          900: '#121212', // Very dark gray
-          800: '#1E1E1E', // Near black
-          700: '#2C2C2C', // Charcoal
+          800: '#112D4E',
+          600: '#3F72AF',
+          400: '#DBE2EF',
+          200: '#F9F7F7',
 
       }
   },

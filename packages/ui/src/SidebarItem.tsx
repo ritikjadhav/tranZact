@@ -8,14 +8,16 @@ interface Link {
    icon: JSX.Element;
 }
 
-export function SidebarItem({ link }: { readonly link: Link }) {
+export function SidebarItem({ links }: { readonly links: Link[] }) {
    const [open, setOpen] = useState(false);
 
    return (
       <div>
          <Sidebar open={open} setOpen={setOpen} animate={false}>
             <SidebarBody>
-               <SidebarLink link={link} />
+               {links.map((link, index) => (
+                  <SidebarLink key={index} link={link} />
+               ))}
             </SidebarBody>
          </Sidebar>
       </div>
