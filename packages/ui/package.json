@@ -7,7 +7,8 @@
     "./card": "./src/card.tsx",
     "./code": "./src/code.tsx",
     "./Appbar": "./src/Appbar.tsx",
-    "./SidebarItem": "./src/SidebarItem.tsx"
+    "./SidebarItem": "./src/SidebarItem.tsx",
+    "./AddMoney": "./src/AddMoney.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

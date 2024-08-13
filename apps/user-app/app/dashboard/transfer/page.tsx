@@ -1,4 +1,7 @@
+import { AddMoney } from '@repo/ui/AddMoney'
 
 export default function Transfer() {
-    return <div>Hi there from Transfer page!</div>
+    return <div>
+        <AddMoney />
+    </div>
 }
