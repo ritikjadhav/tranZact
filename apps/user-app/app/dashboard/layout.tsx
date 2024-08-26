@@ -29,7 +29,7 @@ export default function Layout({ children }: Readonly<{
     ]
 
     return <div className='md:flex md:mt-6 md:px-12'>
-        <div className='flex flex-col justify-center'>
+        <div className='h-full mt-16'>
             <SidebarItem links={links} />
         </div>
         <div className='w-screen'>
