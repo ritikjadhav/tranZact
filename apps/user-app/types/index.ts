@@ -14,3 +14,16 @@ export type CredentialsType = {
     phone: string
     password: string
 }
+
+export type Transactions = {
+    time: Date,
+    amount: number,
+    status: TransactionStatus,
+    provider: string
+}
+
+export enum TransactionStatus {
+    PENDING = 'PENDING',
+    SUCCESS = 'SUCCESS',
+    FAILED = 'FAILED'
+}
