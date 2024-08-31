@@ -1,6 +1,6 @@
-import { AddMoney } from '@repo/ui/AddMoney'
 import { Balance } from '@repo/ui/Balance'
 import { OnRampTransaction } from '../../../components/OnRampTransaction'
+import { AddMoneyCard } from '../../../components/AddMoneyCard'
 import { TransactionStatus } from '../../../types'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../../../lib/auth'
@@ -45,7 +45,7 @@ export default async function Transfer() {
         <div className='text-3xl font-medium py-6'>Transfer</div>
         <div className='flex'>
             <div className='w-96 mr-4'>
-                <AddMoney />
+                <AddMoneyCard />
             </div>
             <div className='w-96'>
                 <Balance amount={balance.amount ?? 0} locked={balance.locked ?? 0} />
