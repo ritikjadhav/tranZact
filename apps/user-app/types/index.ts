@@ -15,7 +15,8 @@ export type CredentialsType = {
     password: string
 }
 
-export type Transactions = {
+export type Transaction = {
+    id: string,
     time: Date,
     amount: number,
     status: TransactionStatus,
@@ -23,7 +24,7 @@ export type Transactions = {
 }
 
 export enum TransactionStatus {
-    PENDING = 'PENDING',
-    SUCCESS = 'SUCCESS',
-    FAILED = 'FAILED'
+    PROCESSING = 'Processing',
+    SUCCESS = 'Success',
+    FAILURE = 'Failure',
 }

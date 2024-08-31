@@ -1,37 +1,57 @@
 import { AddMoney } from '@repo/ui/AddMoney'
 import { Balance } from '@repo/ui/Balance'
 import { OnRampTransaction } from '../../../components/OnRampTransaction'
-import { Transactions, TransactionStatus } from '../../../types'
+import { TransactionStatus } from '../../../types'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../../../lib/auth'
+import prisma from '@tranzact/db'
 
-export default function Transfer() {
-    const transactions: Transactions[] = [
-        {
-            time: new Date(),
-            amount: 100,
-            status: TransactionStatus.PENDING,
-            provider: 'Stripe'
-        },
-        {
-            time: new Date(),
-            amount: 200,
-            status: TransactionStatus.SUCCESS,
-            provider: 'Paypal'
-        },
-        {
-            time: new Date(),
-            amount: 300,
-            status: TransactionStatus.FAILED,
-            provider: 'Stripe'
+async function getBalance() {
+    const session = await getServerSession(authOptions)
+    const balance = await prisma.balance.findFirst({
+        where: {
+            userId: session?.user.id
         }
-    ]
-    return <div className='flex'>
-        <div className='w-96 mr-4'>
-            <AddMoney />
-        </div>
-        <div className='w-96'>
-            <Balance amount={0} locked={0} />
-            <div className='mt-4'>
-                <OnRampTransaction transactions={transactions} />
+    })
+
+    return {
+        amount: balance?.amount,
+        locked: balance?.locked
+    }
+}
+
+async function getOnRampTransactions() {
+    const session = await getServerSession(authOptions)
+    const transactions = await prisma.onRampTransaction.findMany({
+        where: {
+            userId: session?.user.id
+        }
+    })
+    
+    return transactions.map(t => ({
+        id: t.id,
+        amount: t.amount,
+        time: t.startTime,
+        provider: t.provider,
+        status: t.status as TransactionStatus
+    }))
+}
+
+export default async function Transfer() {
+    const balance = await getBalance()
+    const transactions = await getOnRampTransactions()
+
+    return <div>
+        <div className='text-3xl font-medium py-6'>Transfer</div>
+        <div className='flex'>
+            <div className='w-96 mr-4'>
+                <AddMoney />
+            </div>
+            <div className='w-96'>
+                <Balance amount={balance.amount ?? 0} locked={balance.locked ?? 0} />
+                <div className='mt-4'>
+                    <OnRampTransaction transactions={transactions} />
+                </div>
             </div>
         </div>
     </div>

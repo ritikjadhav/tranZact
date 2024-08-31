@@ -59,14 +59,14 @@ export const authOptions = {
             }
         }),
         GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID || '',
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET || ''
+            clientId: process.env.GOOGLE_CLIENT_ID ?? '',
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? ''
         })        
     ],
     callbacks: {
         async session({ token, session }: { token: JWT, session: Session }): Promise<SessionWithUserId> {
             const sessionWithUserId = session as SessionWithUserId
-            sessionWithUserId.user.id = token.sub || ''
+            sessionWithUserId.user.id = token.sub ?? ''
 
             return sessionWithUserId
         }

@@ -1,7 +1,7 @@
 import { Card } from '@repo/ui/card'
-import { Transactions } from '../types'
+import { Transaction } from '../types'
 
-export const OnRampTransaction = ({ transactions }: { transactions: Transactions[] }) => {
+export const OnRampTransaction = ({ transactions }: { transactions: Transaction[] }) => {
     if (!transactions.length) {
         return (
             <Card title='Recent Transactions'>
@@ -14,8 +14,8 @@ export const OnRampTransaction = ({ transactions }: { transactions: Transactions
     return (
         <Card title='Recent Transactions'>
             <div>
-                {transactions.map(transaction => (
-                    <div className='flex justify-between py-1'>
+                {transactions.map((transaction) => (
+                    <div className='flex justify-between py-1' key={transaction.id}>
                         <div>
                             <div className='text-gray-900 dark:text-white'>Received INR</div>
                             <div className='text-xs text-slate-600 dark:text-gray-400'>{transaction.time.toDateString()}</div>
