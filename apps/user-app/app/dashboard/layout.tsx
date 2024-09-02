@@ -1,5 +1,5 @@
 import { SidebarItem } from '@repo/ui/SidebarItem'
-import { IconHome, IconTransfer, IconHistory } from "@tabler/icons-react";
+import { IconHome, IconTransfer, IconHistory, IconBrandCashapp } from "@tabler/icons-react";
 
 export default function Layout({ children }: Readonly<{
     children: React.ReactNode
@@ -24,6 +24,13 @@ export default function Layout({ children }: Readonly<{
             href: "/dashboard/transactions",
             icon: (
                 <IconHistory className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+            ),
+        },
+        {
+            label: "P2P Transfer",
+            href: "/dashboard/p2ptransfer",
+            icon: (
+                <IconBrandCashapp className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
             ),
         }
     ]

@@ -4,7 +4,7 @@ export const TextInput = ({ label, placeholder, onChange }: {
     placeholder: string,
     onChange: (value: string) => void
 }) => {
-    return (<div>
+    return (<div className='mt-4'>
         <label className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>{label}</label>
         <input onChange={(e) => {
             onChange(e.target.value)
