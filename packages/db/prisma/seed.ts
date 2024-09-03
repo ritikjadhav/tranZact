@@ -18,6 +18,12 @@ async function main() {
                     token: '122',
                     provider: 'HDFC Bank'
                 }
+            },
+            Balance: {
+                create: {
+                    amount: 1000,
+                    locked: 500
+                }
             }
         }
     })
@@ -37,10 +43,41 @@ async function main() {
                     token: '123',
                     provider: 'HDFC Bank'
                 }
+            },
+            Balance: {
+                create: {
+                    amount: 2000,
+                    locked: 500
+                }
             }
         }
     })
-    console.log({ ritik, viraj })
+    const ankit = await prisma.user.upsert({
+        where: { phone: '9999999997' },
+        update: {},
+        create: {
+            phone: '9999999997',
+            password: 'ankit',
+            name: 'ankit',
+            auth_type: 'Credentials',
+            OnRampTransaction: {
+                create: {
+                    startTime: new Date(),
+                    status: 'Success',
+                    amount: 20000,
+                    token: '124',
+                    provider: 'HDFC Bank'
+                }
+            },
+            Balance: {
+                create: {
+                    amount: 2000,
+                    locked: 500
+                }
+            }
+        }
+    })
+    console.log({ ritik, viraj, ankit })
 }
 main()
     .then(async () => {

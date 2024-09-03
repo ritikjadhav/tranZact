@@ -1,52 +1,69 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { getServerSession } from 'next-auth';
-import prisma from '@tranzact/db';
-import { authOptions } from '../../../lib/auth';
+import { NextRequest, NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth'
+import prisma from '@tranzact/db'
+import { authOptions } from '../../../lib/auth'
 
-async function sendMoney({ amount, phone }: { amount: number, phone: string }) {
-    const session = await getServerSession(authOptions)
-    await prisma.$transaction([
-        prisma.balance.update({
-            where: {
-                userId: session?.user.id
-            },
-            data: {
-                amount: {
-                    increment: amount
-                }
-            }
-        }),
-        prisma.user.update({
-            where: {
-                phone: phone
-            },
-            data: {
-                Balance: {
-                    update: {
-                        amount: {
-                            increment: -amount
-                        }
-                    }                   
-                }
-            }
-        })
-    ])
+async function sendMoney({ amount, phone }: { amount: number; phone: string }) {
+    try {
+        const session = await getServerSession(authOptions)
+        await prisma.$transaction([
+            prisma.user.update({
+                where: {
+                    phone: phone,
+                },
+                data: {
+                    Balance: {
+                        update: {
+                            amount: {
+                                increment: amount,
+                            },
+                        },
+                    },
+                },
+            }),
+            prisma.user.update({
+                where: {
+                    id: session?.user.id,
+                },
+                data: {
+                    Balance: {
+                        update: {
+                            amount: {
+                                increment: -amount,
+                            },
+                        },
+                    },
+                },
+            }),
+        ])
+        return NextResponse.json(
+            { message: 'Transaction successful!' },
+            { status: 200 }
+        )
+    } catch (e) {
+        console.log(e);        
+    }
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    console.log(req.method, 'method type');
-    
+export async function POST(req: NextRequest) {
     if (req.method === 'POST') {
-        const { amount, phone } = req.body
+        const { amount, phone } = await req.json()
         try {
             await sendMoney({ amount, phone })
-            res.status(200).json({
-                message: 'Money sent successfully'
-            })
+            return NextResponse.json(
+                { message: 'Money sent successfully' },
+                { status: 200 }
+            )
         } catch (e) {
-            res.status(500).json({ error: 'Failed to send money' })
+            return NextResponse.json(
+                { message: 'Failed to send money' },
+                { status: 500 }
+            )
         }
     } else {
-        res.status(405).json({ error: 'Method not allowed' })
+        return NextResponse.json(
+            { error: 'Method not allowed' },
+            { status: 405 }
+        )
     }
 }
