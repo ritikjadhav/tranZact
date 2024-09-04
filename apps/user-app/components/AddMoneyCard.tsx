@@ -1,8 +1,12 @@
 'use client'
+import { Button } from '@repo/ui/button'
 import { Card } from '@repo/ui/card'
 import { Select } from '@repo/ui/Select'
 import { TextInput } from '@repo/ui/TextInput'
+import axios from 'axios'
 import React, { useState } from 'react'
+import { useSetRecoilState } from 'recoil'
+import { balanceAtom } from '../../../packages/store/src/atoms/balance'
 
 const SUPPORTED_BANKS = [
     {
@@ -21,15 +25,30 @@ const SUPPORTED_BANKS = [
 
 export const AddMoneyCard = () => {
     const [redirectUrl, setRedirectUrl] = useState(SUPPORTED_BANKS[0]?.redirectUrl)
+    const [amount, setAmount] = useState(0)
+    const setBalance = useSetRecoilState(balanceAtom)
+
+    const onAddMoney = async () => {
+        try {
+            const response = await axios.post('/api/onramp-transaction', amount)
+            if (response.status === 200) {
+                setBalance(amount)
+            }
+            console.log(response)
+        } catch (e) {
+            console.log('Error adding money:', e)      
+        }
+    }
 
     return (
         <Card title='Add Money'>
             <TextInput
-                onChange={() => {}}
+                onChange={(value) => setAmount(value)}
+                type='number'
                 label='Amount'
                 placeholder='Amount'
             />
-            <div className='text-sm font-medium mt-4 mb-2'>
+            <div className='text-sm font-medium mt-4 mb-2 dark:text-white'>
                 Select Your Bank
             </div>
             <Select
@@ -44,16 +63,9 @@ export const AddMoneyCard = () => {
                     value: option.name,
                 }))}
             />
-            <button
-                onClick={() => {
-                    window.location.href = redirectUrl ?? ''
-                }}
-                className='w-full relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800'
-            >
-                <span className='w-full relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0'>
-                    Add Money
-                </span>
-            </button>
+            <div className='mt-6'>
+                <Button onClick={onAddMoney}>Add Money</Button>
+            </div>
         </Card>
     )
 }

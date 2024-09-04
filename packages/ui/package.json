@@ -8,7 +8,6 @@
     "./code": "./src/code.tsx",
     "./Appbar": "./src/Appbar.tsx",
     "./SidebarItem": "./src/SidebarItem.tsx",
-    "./Balance": "./src/Balance.tsx",
     "./Select": "./src/Select.tsx",
     "./TextInput": "./src/TextInput.tsx"
   },

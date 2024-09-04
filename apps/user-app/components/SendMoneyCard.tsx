@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 export const SendMoneyCard = () => {
     const [phone, setPhone] = useState<string>()
-    const [amount, setAmount] = useState<string>()
+    const [amount, setAmount] = useState<number>()
 
     const onSendMoney = async () => {
         try {
@@ -19,8 +19,8 @@ export const SendMoneyCard = () => {
     }
 
     return <Card title='Send Money'>
-        <TextInput onChange={(value) => setPhone(value)} label='Phone' placeholder='8888347612' />
-        <TextInput onChange={(value) => setAmount(value)} label='Amount' placeholder='1000' />
+        <TextInput onChange={(value) => setPhone(value)} type='text' label='Phone' placeholder='8888347612' />
+        <TextInput onChange={(value) => setAmount(value)} type='number' label='Amount' placeholder='1000' />
         <div className='flex justify-center mt-6'>
             <Button onClick={onSendMoney}>Send</Button>
         </div>

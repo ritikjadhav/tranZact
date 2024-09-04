@@ -42,7 +42,13 @@ export const authOptions = {
                         data: {
                             phone: credentials.phone,
                             password: hashedPassword,
-                            auth_type: 'Credentials'
+                            auth_type: 'Credentials',
+                            Balance: {
+                                create: {
+                                    amount: 0,
+                                    locked: 0
+                                }
+                            }
                         }
                     })
 

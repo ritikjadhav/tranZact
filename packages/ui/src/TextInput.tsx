@@ -1,13 +1,29 @@
+import { ChangeEvent } from 'react'
 
-export const TextInput = ({ label, placeholder, onChange }: { 
-    label: string,
-    placeholder: string,
-    onChange: (value: string) => void
-}) => {
-    return (<div className='mt-4'>
-        <label className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>{label}</label>
-        <input onChange={(e) => {
-            onChange(e.target.value)
-        }} type="text" placeholder={placeholder} className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white' />
-    </div>)
+type InputType = 'text' | 'number' | 'email' | 'password'
+
+interface TextInputProps<T extends InputType> {
+    type: T
+    label: string
+    placeholder: string
+    onChange: (value: T extends 'number' ? number : string) => void
+}
+
+export const TextInput = <T extends InputType>({ type, label, placeholder, onChange }: TextInputProps<T>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = type === 'number' ? Number(e.target.value) : e.target.value
+        onChange(value as T extends 'number' ? number : string)
+    }
+
+    return (
+        <div className='mt-4'>
+            <label className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>{label}</label>
+            <input
+                onChange={handleChange}
+                type={type}
+                placeholder={placeholder}
+                className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'
+            />
+        </div>
+    )
 }
