@@ -4,3 +4,8 @@ export type PaymentInfo = {
     userId: string
     amount: number
 }
+
+export type Balance = {
+    amount: number
+    locked: number
+}

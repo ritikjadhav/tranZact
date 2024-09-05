@@ -30,9 +30,13 @@ export const AddMoneyCard = () => {
 
     const onAddMoney = async () => {
         try {
-            const response = await axios.post('/api/onramp-transaction', amount)
+            const response = await axios.post('/api/balance', amount)
             if (response.status === 200) {
-                setBalance(amount)
+                const balance = response.data.balance
+                setBalance({
+                    amount: balance.amount,
+                    locked: balance.locked
+                })
             }
             console.log(response)
         } catch (e) {
