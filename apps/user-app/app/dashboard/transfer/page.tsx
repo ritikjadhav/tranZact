@@ -6,12 +6,16 @@ import { authOptions } from '../../../lib/auth'
 import { BalanceCard } from '../../../components/BalanceCard'
 import prisma from '@tranzact/db'
 
-async function getOnRampTransactions() {
+export async function getOnRampTransactions() {
     const session = await getServerSession(authOptions)
     const transactions = await prisma.onRampTransaction.findMany({
         where: {
             userId: session?.user.id
-        }
+        },
+        orderBy: {
+            startTime: 'desc'
+        },
+        take: 3
     })
 
     return transactions.map(t => ({

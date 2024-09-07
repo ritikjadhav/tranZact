@@ -60,22 +60,34 @@ export async function POST(req: NextRequest) {
                 { status: 400 }
             )
         }
-
+        const token = Math.random().toString(36).substring(7)
         const amount = result.data
-        
-        const balance = await prisma.balance.update({
-            where: {
-                userId: session?.user.id,
-            },
-            data: {
-                amount: {
-                    increment: amount,
+        const [balance, onrampTransaction] = await prisma.$transaction([
+            prisma.balance.update({
+                where: {
+                    userId: session?.user.id,
                 },
-            },
-        })
+                data: {
+                    amount: {
+                        increment: amount,
+                    },
+                },
+            }),
+            prisma.onRampTransaction.create({
+                data: {
+                    startTime: new Date(),
+                    status: 'Success',
+                    amount: amount,
+                    token: token,
+                    provider: 'HDFC Bank',
+                    userId: session.user.id
+                }
+            })
+
+        ])
 
         return NextResponse.json(
-            { message: 'Money added to wallet successfully!', balance },
+            { message: 'Money added to wallet successfully!', balance, onrampTransaction },
             { status: 200 }
         )
     } catch (e) {

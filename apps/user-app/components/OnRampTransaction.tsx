@@ -1,8 +1,28 @@
+'use client'
 import { Card } from '@repo/ui/card'
 import { Transaction } from '../types'
+import { useEffect, useState } from 'react'
+import { getOnRampTransactions } from '../app/dashboard/transfer/page'
+import { useBalance } from '@tranzact/store/useBalance'
+import axios from 'axios'
 
 export const OnRampTransaction = ({ transactions }: { transactions: Transaction[] }) => {
-    if (!transactions.length) {
+    const { amount } = useBalance()
+    const [onrampTrans, setOnrampTrans] = useState(transactions)
+
+    useEffect(() => {
+        const fetchBalance = async () => {
+            try {
+                const response = await axios.get('/api/onramp-transaction')                
+                setOnrampTrans(response.data)
+            } catch (e) {
+                console.error('Error fetching balance:', e)
+            }
+        }
+        fetchBalance()    
+    }, [amount])
+
+    if (!onrampTrans.length) {
         return (
             <Card title='Recent Transactions'>
                 <div className='text-center p-6'>
@@ -14,7 +34,7 @@ export const OnRampTransaction = ({ transactions }: { transactions: Transaction[
     return (
         <Card title='Recent Transactions'>
             <div>
-                {transactions.map((transaction) => (
+                {onrampTrans.map((transaction) => (
                     <div className='flex justify-between py-1' key={transaction.id}>
                         <div>
                             <div className='text-gray-900 dark:text-white'>Received INR</div>

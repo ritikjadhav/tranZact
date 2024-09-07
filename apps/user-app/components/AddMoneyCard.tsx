@@ -24,6 +24,7 @@ const SUPPORTED_BANKS = [
 ]
 
 export const AddMoneyCard = () => {
+    const [selectedBank, setSelectedBank] = useState('')
     const [redirectUrl, setRedirectUrl] = useState(SUPPORTED_BANKS[0]?.redirectUrl)
     const [amount, setAmount] = useState(0)
     const setBalance = useSetRecoilState(balanceAtom)
@@ -40,7 +41,7 @@ export const AddMoneyCard = () => {
             }
             console.log(response)
         } catch (e) {
-            console.log('Error adding money:', e)      
+            console.log('Error adding money:', e) 
         }
     }
 
@@ -57,6 +58,7 @@ export const AddMoneyCard = () => {
             </div>
             <Select
                 onSelect={(value) => {
+                    setSelectedBank(value)
                     setRedirectUrl(
                         SUPPORTED_BANKS.find((x) => x.name === value)
                             ?.redirectUrl ?? ''
