@@ -3,10 +3,10 @@ import { Button } from '@repo/ui/button'
 import { Card } from '@repo/ui/card'
 import { Select } from '@repo/ui/Select'
 import { TextInput } from '@repo/ui/TextInput'
-import axios from 'axios'
 import React, { useState } from 'react'
 import { useSetRecoilState } from 'recoil'
 import { balanceAtom } from '../../../packages/store/src/atoms/balance'
+import { createOnrampTransaction } from '../lib/actions/createOnrampTransaction'
 
 const SUPPORTED_BANKS = [
     {
@@ -28,22 +28,6 @@ export const AddMoneyCard = () => {
     const [redirectUrl, setRedirectUrl] = useState(SUPPORTED_BANKS[0]?.redirectUrl)
     const [amount, setAmount] = useState(0)
     const setBalance = useSetRecoilState(balanceAtom)
-
-    const onAddMoney = async () => {
-        try {
-            const response = await axios.post('/api/balance', amount)
-            if (response.status === 200) {
-                const balance = response.data.balance
-                setBalance({
-                    amount: balance.amount,
-                    locked: balance.locked
-                })
-            }
-            console.log(response)
-        } catch (e) {
-            console.log('Error adding money:', e) 
-        }
-    }
 
     return (
         <Card title='Add Money'>
@@ -70,7 +54,9 @@ export const AddMoneyCard = () => {
                 }))}
             />
             <div className='mt-6'>
-                <Button onClick={onAddMoney}>Add Money</Button>
+                <Button onClick={async () =>
+                    await createOnrampTransaction(selectedBank, amount)
+                }>Add Money</Button>
             </div>
         </Card>
     )
