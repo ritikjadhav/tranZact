@@ -77,7 +77,6 @@ async function main() {
             }
         }
     })
-    console.log({ ritik, viraj, ankit })
 }
 main()
     .then(async () => {

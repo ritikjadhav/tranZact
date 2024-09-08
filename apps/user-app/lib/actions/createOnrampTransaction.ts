@@ -4,6 +4,8 @@ import prisma from '@tranzact/db'
 import { createOnrampSchema } from '@tranzact/store/zod'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../auth'
+import crypto from 'crypto'
+
 
 export const createOnrampTransaction = async (provider: string, amount: number) => {
     try {
@@ -14,7 +16,7 @@ export const createOnrampTransaction = async (provider: string, amount: number) 
             }
         }
 
-        const token = Math.random().toString(16).substring(7)
+        const token = crypto.randomBytes(16).toString('hex')
         const result = createOnrampSchema.safeParse({ provider, amount })
 
         if (!result.success) {
@@ -33,7 +35,7 @@ export const createOnrampTransaction = async (provider: string, amount: number) 
                 amount: amount,
                 startTime: new Date()
             }
-        })
+        })        
         return { message: 'Transaction in progress!'}
     } catch (e) {
         return {

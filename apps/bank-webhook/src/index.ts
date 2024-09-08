@@ -1,47 +1,63 @@
 import prisma from '@tranzact/db'
-import { PaymentInfo } from '@tranzact/store/types'
+import { paymentToken } from '@tranzact/store/zod'
 import express from 'express'
 
 const app = express()
 
-app.post('/hdfcWebhook', async (req, res) => {
-    const paymentInfo: PaymentInfo = {
-        token: req.body.token,
-        userId: req.body.user_identifier,
-        amount: req.body.amount
-    }
+app.use(express.json())
 
+app.post('/hdfcWebhook', async (req, res) => {
     try {
+        const result = paymentToken.safeParse(req.body)
+        if (!result.success) {
+            return res.status(400).json({
+                message: result.error?.errors
+            })
+        }
+        const token = result.data.token
+
+        const transaction = await prisma.onRampTransaction.findUnique({
+            where: {
+                token: token,
+            },
+        })
+
+        if (!transaction) {
+            return res.json({ message: 'Transaction not found'})
+        }
+
         await prisma.$transaction([
+            prisma.onRampTransaction.update({
+                where: {
+                    token: token,
+                },
+                data: {
+                    status: 'Success',
+                },
+            }),
             prisma.balance.update({
                 where: {
-                    userId: paymentInfo.userId
+                    userId: transaction?.userId,
                 },
                 data: {
                     amount: {
-                        increment: paymentInfo.amount
-                    }
-                }
-            }),
-            prisma.onRampTransaction.updateMany({
-                where: {
-                    token: paymentInfo.token
+                        increment: transaction?.amount,
+                    },
                 },
-                data: {
-                    status: 'Success'
-                }
-            })
+            }),
         ])
 
         res.status(200).json({
-            messsage: 'Captured'
+            messsage: 'Captured',
         })
     } catch (e) {
-        console.log(e);
+        console.log(e)
         res.status(411).json({
-            messsage: 'Error while processing webhook'
+            messsage: 'Error while processing webhook',
         })
     }
 })
 
-app.listen(3004)
+app.listen(3004, () => {
+    console.log('bank-webhook running on port 3004')
+})
