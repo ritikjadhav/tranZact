@@ -24,7 +24,7 @@ export const createOnrampTransaction = async (provider: string, amount: number) 
             }
         }
         
-        prisma.onRampTransaction.create({
+        await prisma.onRampTransaction.create({
             data: {
                 userId: session.user.id,
                 status: 'Processing',
