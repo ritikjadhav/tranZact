@@ -6,7 +6,7 @@ const app = express()
 
 app.use(express.json())
 
-app.post('/hdfcWebhook', async (req, res) => {
+app.post('/bankWebhook', async (req, res) => {
     try {
         const result = paymentToken.safeParse(req.body)
         if (!result.success) {

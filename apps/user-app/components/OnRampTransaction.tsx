@@ -2,27 +2,30 @@
 import { Card } from '@repo/ui/card'
 import { Transaction } from '../types'
 import { useEffect, useState } from 'react'
-import { getOnRampTransactions } from '../app/dashboard/transfer/page'
-import { useBalance } from '@tranzact/store/useBalance'
-import axios from 'axios'
+import { useRecoilState } from 'recoil'
+import { updateOnramp } from '@tranzact/store/updateOnramp'
+import { getOnrampTransactions } from '../lib/actions/getOnrampTransaction'
 
-export const OnRampTransaction = ({ transactions }: { transactions: Transaction[] }) => {
-    const { amount } = useBalance()
-    const [onrampTrans, setOnrampTrans] = useState(transactions)
+export const OnRampTransaction = () => {
+    const [onrampTrans, setOnrampTrans] = useState<Transaction[]>()
+    const [updateTrans, setUpdateTrans] = useRecoilState(updateOnramp)
 
     useEffect(() => {
         const fetchBalance = async () => {
             try {
-                const response = await axios.get('/api/onramp-transaction')                
-                setOnrampTrans(response.data)
+                const response = await getOnrampTransactions()
+                if (response.status === 'success') {
+                    setOnrampTrans(response.data)
+                }
+                setUpdateTrans(false)
             } catch (e) {
-                console.error('Error fetching balance:', e)
+                console.error('Error fetching transactions:', e)
             }
         }
-        fetchBalance()    
-    }, [amount])
+        fetchBalance()
+    }, [updateTrans])
 
-    if (!onrampTrans.length) {
+    if (!onrampTrans) {
         return (
             <Card title='Recent Transactions'>
                 <div className='text-center p-6'>

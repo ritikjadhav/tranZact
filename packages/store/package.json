@@ -16,6 +16,7 @@
   "exports": {
     "./useBalance": "./src/hooks/useBalance.ts",
     "./types": "./src/types/index.ts",
-    "./zod": "./src/zod/index.ts"
+    "./zod": "./src/zod/index.ts",
+    "./updateOnramp": "./src/atoms/updateOnramp.ts"
   }
 }

@@ -1,13 +1,15 @@
+'use server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../auth'
 import prisma from '@tranzact/db'
-import { TransactionStatus } from '../../types'
+import { TransactionResponse, TransactionStatus } from '../../types'
 
-export const getOnrampTransactions = async () => {
+export const getOnrampTransactions = async (): Promise<TransactionResponse> => {
     try {
         const session = await getServerSession(authOptions)
         if (!session?.user || !session.user?.id) {
             return {
+                status: 'error',
                 message: 'Unauthorized access'
             }
         }
@@ -22,15 +24,21 @@ export const getOnrampTransactions = async () => {
             take: 3
         })
 
-        return transactions.map((t) => ({
+        const formattedTransactions = transactions.map((t) => ({
             id: t.id,
             amount: t.amount,
             time: t.startTime,
             provider: t.provider,
             status: t.status as TransactionStatus,
         }))
+
+        return {
+            status: 'success',
+            data: formattedTransactions
+        }
     } catch (e) {
         return {
+            status: 'error',
             message: 'An error occurred while fetching the transactions',
             error: e
         }

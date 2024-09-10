@@ -28,3 +28,12 @@ export enum TransactionStatus {
     SUCCESS = 'Success',
     FAILURE = 'Failure',
 }
+
+export type TransactionResponse = {
+    status: 'success'
+    data: Transaction[]
+} | {
+    status: 'error',
+    message: string
+    error?: unknown
+}

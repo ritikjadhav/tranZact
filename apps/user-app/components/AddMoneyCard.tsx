@@ -5,8 +5,8 @@ import { Select } from '@repo/ui/Select'
 import { TextInput } from '@repo/ui/TextInput'
 import React, { useState } from 'react'
 import { useSetRecoilState } from 'recoil'
-import { balanceAtom } from '../../../packages/store/src/atoms/balance'
 import { createOnrampTransaction } from '../lib/actions/createOnrampTransaction'
+import { updateOnramp } from '@tranzact/store/updateOnramp'
 
 const SUPPORTED_BANKS = [
     {
@@ -24,10 +24,10 @@ const SUPPORTED_BANKS = [
 ]
 
 export const AddMoneyCard = () => {
-    const [selectedBank, setSelectedBank] = useState('')
+    const [selectedBank, setSelectedBank] = useState('HDFC Bank')
     const [redirectUrl, setRedirectUrl] = useState(SUPPORTED_BANKS[0]?.redirectUrl)
     const [amount, setAmount] = useState(0)
-    const setBalance = useSetRecoilState(balanceAtom)
+    const setUpdateTrans = useSetRecoilState(updateOnramp)
 
     return (
         <Card title='Add Money'>
@@ -54,9 +54,14 @@ export const AddMoneyCard = () => {
                 }))}
             />
             <div className='mt-6'>
-                <Button onClick={async () =>
-                    await createOnrampTransaction(selectedBank, amount)
-                }>Add Money</Button>
+                <Button
+                    onClick={async () => {
+                        await createOnrampTransaction(selectedBank, amount)
+                        setUpdateTrans(true)
+                    }}
+                >
+                    Add Money
+                </Button>
             </div>
         </Card>
     )
