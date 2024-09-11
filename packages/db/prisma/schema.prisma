@@ -22,6 +22,8 @@ model User {
   auth_type         AuthType
   Balance           Balance?
   OnRampTransaction OnRampTransaction[]
+  sentTransfers     P2PTransaction[]    @relation(name: "FromUserRelation")
+  receivedTransfers P2PTransaction[]    @relation(name: "ToUserRelation")
 }
 
 model OnRampTransaction {
@@ -41,6 +43,16 @@ model Balance {
   amount Int
   locked Int
   user   User   @relation(fields: [userId], references: [id])
+}
+
+model P2PTransaction {
+  id         String   @id @default(uuid())
+  amount     Int
+  timeStamp  DateTime
+  fromUserId String
+  fromUser   User     @relation(name: "FromUserRelation", fields: [fromUserId], references: [id])
+  toUserId   String
+  toUser     User     @relation(name: "ToUserRelation", fields: [toUserId], references: [id])
 }
 
 enum AuthType {
