@@ -37,3 +37,19 @@ export type TransactionResponse = {
     message: string
     error?: unknown
 }
+
+export type P2PTransaction = {
+    id: string,
+    amount: number,
+    time: Date,
+    status: string
+}
+
+export type P2PTransResponse = {
+    status: 'success'
+    data: P2PTransaction[]
+} | {
+    status: 'error',
+    message: string
+    error?: unknown
+}
