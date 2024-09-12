@@ -2,7 +2,7 @@
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../auth'
 import prisma from '@tranzact/db'
-import { TransactionResponse, TransactionStatus } from '../../types'
+import { OnRampStatus, OnRampTransactionT, TransactionResponse } from '../../types'
 
 export const getOnrampTransactions = async (): Promise<TransactionResponse> => {
     try {
@@ -24,12 +24,12 @@ export const getOnrampTransactions = async (): Promise<TransactionResponse> => {
             take: 3
         })
 
-        const formattedTransactions = transactions.map((t) => ({
+        const formattedTransactions = transactions.map((t: OnRampTransactionT) => ({
             id: t.id,
             amount: t.amount,
-            time: t.startTime,
+            startTime: t.startTime,
             provider: t.provider,
-            status: t.status as TransactionStatus,
+            status: t.status as OnRampStatus,
         }))
 
         return {
