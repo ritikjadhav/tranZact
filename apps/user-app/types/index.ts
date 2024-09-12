@@ -46,6 +46,14 @@ export type P2PTransaction = {
     status: string
 }
 
+export type GetP2PTransaction = {
+    id: string
+    amount: number
+    timeStamp: Date
+    fromUserId: string
+    toUserId: string
+}
+
 export type P2PTransResponse =
     | {
           status: 'success'

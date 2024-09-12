@@ -3,7 +3,7 @@
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../auth'
 import prisma from '@tranzact/db'
-import { P2PTransResponse } from '../../types'
+import { P2PTransaction, GetP2PTransaction, P2PTransResponse } from '../../types'
 
 export const getP2PTransactions = async (): Promise<P2PTransResponse> => {
     try {
@@ -24,7 +24,7 @@ export const getP2PTransactions = async (): Promise<P2PTransResponse> => {
             take: 10,
         })
 
-        const formattedTransactions = transactions.map((t) => ({
+        const formattedTransactions = transactions.map((t: GetP2PTransaction): P2PTransaction => ({
             id: t.id,
             amount: t.amount,
             time: t.timeStamp,
