@@ -2,7 +2,7 @@
 
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../auth'
-import prisma, { PrismaTransactionalClient } from '@tranzact/db'
+import prisma, { PrismaTransactionClient } from '@tranzact/db'
 
 export async function p2pTransfer(to: string, amount: number) {
     try {
@@ -25,7 +25,7 @@ export async function p2pTransfer(to: string, amount: number) {
             }
         }
 
-        await prisma.$transaction(async (tx: PrismaTransactionalClient) => {
+        await prisma.$transaction(async (tx: PrismaTransactionClient) => {
             await tx.$queryRaw`SELECT * FROM "Balance" WHERE "userId" = ${from} FOR UPDATE`
             const fromBalance = await tx.balance.findUnique({
                 where: { userId: from },
