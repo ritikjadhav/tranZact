@@ -1,7 +1,7 @@
 import { Session } from 'next-auth'
 import { z } from 'zod'
 import { UserInput } from '../zod/user'
-// import { OnRampStatus } from '@tranzact/db'
+import { OnRampStatus } from '@tranzact/db'
 
 export type SessionWithUserId = Session & {
     user: {
@@ -24,12 +24,6 @@ export type OnRampTransactionT = {
     amount: number
     startTime: Date
     userId?: string
-}
-
-enum OnRampStatus {
-    'Processing',
-    'Success',
-    'Failure'
 }
 
 export type TransactionResponse =
