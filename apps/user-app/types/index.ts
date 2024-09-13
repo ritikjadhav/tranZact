@@ -1,9 +1,7 @@
 import { Session } from 'next-auth'
 import { z } from 'zod'
 import { UserInput } from '../zod/user'
-import { OnRampStatus as PrismaOnRampStatus } from '@prisma/client'
-
-export type OnRampStatus = PrismaOnRampStatus
+import { OnRampStatus } from '@tranzact/db'
 
 export type SessionWithUserId = Session & {
     user: {

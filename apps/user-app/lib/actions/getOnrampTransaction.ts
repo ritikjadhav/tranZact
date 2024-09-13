@@ -1,8 +1,8 @@
 'use server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../auth'
-import prisma from '@tranzact/db'
-import { OnRampStatus, OnRampTransactionT, TransactionResponse } from '../../types'
+import prisma, { OnRampStatus } from '@tranzact/db'
+import { OnRampTransactionT, TransactionResponse } from '../../types'
 
 export const getOnrampTransactions = async (): Promise<TransactionResponse> => {
     try {
