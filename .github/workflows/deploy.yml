@@ -3,8 +3,7 @@ name: Build and Deploy to Docker Hub
 on:
   push:
     branches:
-      - master
-      - main
+      - update-deploy-yml
 
 jobs:
   build-and-push:
