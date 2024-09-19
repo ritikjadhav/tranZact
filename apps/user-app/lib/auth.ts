@@ -69,6 +69,9 @@ export const authOptions = {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? ''
         })        
     ],
+    pages: {
+        signIn: '/signin',
+    },
     callbacks: {
         async session({ token, session }: { token: JWT, session: Session }): Promise<SessionWithUserId> {
             const sessionWithUserId = session as SessionWithUserId
