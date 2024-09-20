@@ -10,7 +10,8 @@
     "./SidebarItem": "./src/SidebarItem.tsx",
     "./Select": "./src/Select.tsx",
     "./TextInput": "./src/TextInput.tsx",
-    "./AuthHeader": "./src/AuthHeader.tsx"
+    "./AuthHeader": "./src/AuthHeader.tsx",
+    "./AuthProviders": "./src/AuthProviders.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
