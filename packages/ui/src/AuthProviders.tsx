@@ -7,7 +7,7 @@ export const AuthProviders = ({ to, label }: AuthProps) => {
         <div>
             <div className='flex justify-center my-3 text-sm font-roboto dark:text-white'>
                 {label === 'Sign up now' ? 'Don\'t' : 'Already'} have an account?{' '}
-                <Link href={to} className='ml-2 text-sky-500 hover:underline'>{label}</Link>
+                <Link href={to} className='ml-2 text-[#3b82f6] hover:underline'>{label}</Link>
             </div>
             <div className='flex justify-center py-3'>
                 OR

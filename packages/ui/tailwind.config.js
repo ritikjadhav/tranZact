@@ -14,6 +14,7 @@ module.exports = {
             colors: {
                 darkBackground: '#000000',
                 darkPages: '#282A3A',
+                customBlue: '#2563eb',
                 800: '#112D4E',
                 600: '#3F72AF',
                 400: '#DBE2EF',

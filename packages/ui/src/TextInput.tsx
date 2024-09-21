@@ -23,7 +23,7 @@ export const TextInput = <T extends InputType>({ type, label, placeholder, onCha
                     onChange={handleChange}
                     type={type}
                     placeholder={placeholder}
-                    className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full my-3 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'
+                    className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customBlue focus:border-customBlue w-full my-3 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'
                 />
             </div>
         )
@@ -34,7 +34,7 @@ export const TextInput = <T extends InputType>({ type, label, placeholder, onCha
             onChange={handleChange}
             type={type}
             placeholder={placeholder}
-            className='font-poppins text-base text-gray-900 w-full my-3 py-3 px-4 rounded-lg placeholder:font-bold placeholder-gray-500 focus:ring-2 focus:outline-none focus:ring-[#24292F]/50 bg-gray-100 dark:bg-gray-600 dark:placeholder-gray-400 dark:text-white'
+            className='font-poppins text-base text-gray-900 w-full my-3 py-3 px-4 rounded-lg placeholder:font-bold placeholder-gray-500 focus:ring-customBlue focus:border-customBlue bg-gray-100 dark:bg-gray-600 dark:placeholder-gray-400 dark:text-white'
         />
     )
 }
