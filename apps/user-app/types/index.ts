@@ -12,7 +12,9 @@ export type SessionWithUserId = Session & {
 export type UserInputType = z.infer<typeof UserInput>
 
 export type CredentialsType = {
-    phone: string
+    phone: string,
+    name?: string,
+    email?: string,
     password: string
 }
 
