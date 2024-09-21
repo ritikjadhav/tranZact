@@ -26,6 +26,15 @@ export const BalanceCard = () => {
         }
         fetchBalance()    
     }, [updateTrans])
+
+    if (balance.amount + balance.locked === 0) {
+        return <Card title='Balance'>
+            <div className='flex justify-center'>
+                <img src="/wallet.png" alt="wallet icon" width={'400px'} />
+            </div>
+            <p className="text-gray-600 text-lg text-center font-poppins">You have no balance</p>
+        </Card>
+    }
     
     return (<Card title='Balance'>
         <div className='flex justify-between pb-1 mb-4 border-b dark:border-gray-700 text-gray-900 dark:text-white'>

@@ -36,13 +36,13 @@ export default function Layout({ children }: Readonly<{
         }
     ]
 
-    return <div className='md:flex md:flex-col h-screen'>
+    return <div className='md:flex md:flex-col'>
         <div className='shadow-md z-10'>
             <AppbarClient />
         </div>
-        <div className='md:flex h-screen bg-gray-100 dark:bg-neutral-800'>
+        <div className='md:flex h-full bg-gray-100 dark:bg-neutral-800'>
             <SidebarItem links={links} />
-            <div className='w-screen md:pr-12 md:pl-12 md:pt-6 bg-white border-4 border-t-2 border-gray-100 dark:border-neutral-800 rounded-tl-3xl'>
+            <div className='w-screen md:pr-12 md:pl-12 md:pt-6 bg-white border-4 border-t-2 border-gray-100 dark:border-neutral-800 rounded-3xl'>
                 {children}
             </div>
         </div>

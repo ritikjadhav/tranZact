@@ -4,17 +4,17 @@ import { BalanceCard } from '../../../components/BalanceCard'
 
 export default async function Transfer() {
     return (
-        <div>
-            <div className='text-3xl font-medium py-6 dark:text-white'>Transfer</div>
+        <div className='pb-6'>
+            <div className='text-3xl font-poppins font-semibold py-6 bg-gradient-to-r from-[#1d4ed8] via-[#3b82f6] to-[#60a5fa] text-transparent bg-clip-text dark:text-white'>Transfer</div>
             <div className='flex'>
-                <div className='w-96 mr-4'>
+                <div className='w-1/2 pr-4'>
                     <AddMoneyCard />
-                </div>
-                <div className='w-96'>
-                    <BalanceCard />
-                    <div className='mt-4'>
+                    <div className='mt-8'>
                         <OnRampTransaction />
                     </div>
+                </div>
+                <div className='w-1/2 pl-4'>
+                    <BalanceCard />                    
                 </div>
             </div>
         </div>

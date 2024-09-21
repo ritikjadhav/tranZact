@@ -28,9 +28,10 @@ export const OnRampTransaction = () => {
     if (!onrampTrans?.length) {
         return (
             <Card title='Recent Transactions'>
-                <div className='text-center p-6'>
-                    No recent transactions
+                <div className='flex justify-center'>
+                    <img src="/documents.png" alt="documents icon" width={'350px'} />
                 </div>
+                <p className="text-gray-600 text-lg text-center font-poppins">No recent transactions</p>
             </Card>
         )
     }

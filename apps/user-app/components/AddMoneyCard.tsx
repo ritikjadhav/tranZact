@@ -37,7 +37,7 @@ export const AddMoneyCard = () => {
                 label='Amount'
                 placeholder='Amount'
             />
-            <div className='text-sm font-medium mt-4 mb-2 dark:text-white'>
+            <div className='font-medium mt-3 dark:text-white'>
                 Select Your Bank
             </div>
             <Select
@@ -53,16 +53,14 @@ export const AddMoneyCard = () => {
                     value: option.name,
                 }))}
             />
-            <div className='mt-6'>
-                <Button
-                    onClick={async () => {
-                        await createOnrampTransaction(selectedBank, amount)
-                        setUpdateTrans(true)
-                    }}
-                >
-                    Add Money
-                </Button>
-            </div>
+            <Button
+                onClick={async () => {
+                    await createOnrampTransaction(selectedBank, amount)
+                    setUpdateTrans(true)
+                }}
+            >
+                Add Money
+            </Button>
         </Card>
     )
 }
