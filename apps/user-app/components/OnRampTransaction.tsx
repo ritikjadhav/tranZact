@@ -25,7 +25,7 @@ export const OnRampTransaction = () => {
         fetchBalance()
     }, [updateTrans])
 
-    if (!onrampTrans) {
+    if (!onrampTrans?.length) {
         return (
             <Card title='Recent Transactions'>
                 <div className='text-center p-6'>

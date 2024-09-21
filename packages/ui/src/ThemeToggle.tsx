@@ -3,7 +3,7 @@ import { Moon, Sun } from 'lucide-react'
 
 export const ThemeToggle = () => {
     const [darkMode, setDarkMode] = useState<Boolean>()
-    
+
     useEffect(() => {
         const theme = localStorage.getItem('theme')
         if (theme === 'dark') {
@@ -22,14 +22,13 @@ export const ThemeToggle = () => {
     }, [darkMode])
 
     return <div className='px-6'>
-         <button
-      onClick={() => setDarkMode(!darkMode)}
-      className={`p-2 rounded-full transition-colors duration-200 ease-in-out ${
-        darkMode ? 'bg-gray-800 text-yellow-400' : 'bg-gray-200 text-gray-800'
-      }`}
-      aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-    >
-      {darkMode ? <Sun size={24} /> : <Moon size={24} />}
-    </button>
+        <button
+            onClick={() => setDarkMode(!darkMode)}
+            className={`p-2 rounded-full transition-colors duration-200 ease-in-out ${darkMode ? 'bg-gray-800 text-yellow-400' : 'bg-gray-200 text-gray-800'
+                }`}
+            aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+        >
+            {darkMode ? <Sun size={24} /> : <Moon size={24} />}
+        </button>
     </div>
 }

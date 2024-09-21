@@ -1,5 +1,6 @@
 import { SidebarItem } from '@repo/ui/SidebarItem'
 import { IconHome, IconTransfer, IconHistory, IconBrandCashapp } from "@tabler/icons-react";
+import { AppbarClient } from '../../components/AppbarClient';
 
 export default function Layout({ children }: Readonly<{
     children: React.ReactNode
@@ -35,12 +36,15 @@ export default function Layout({ children }: Readonly<{
         }
     ]
 
-    return <div className='md:flex md:mt-6 md:px-12'>
-        <div className='h-full mt-16'>
-            <SidebarItem links={links} />
+    return <div className='md:flex md:flex-col h-screen'>
+        <div className='shadow-md z-10'>
+            <AppbarClient />
         </div>
-        <div className='w-screen'>
-            {children}
+        <div className='md:flex h-screen bg-gray-100 dark:bg-neutral-800'>
+            <SidebarItem links={links} />
+            <div className='w-screen md:pr-12 md:pl-12 md:pt-6 bg-white border-4 border-t-2 border-gray-100 dark:border-neutral-800 rounded-tl-3xl'>
+                {children}
+            </div>
         </div>
     </div>
 }

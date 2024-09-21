@@ -16,8 +16,11 @@ module.exports = {
           600: '#3F72AF',
           400: '#DBE2EF',
           200: '#F9F7F7',
-
-      }
+      },
+      fontFamily: {
+        roboto: ['Roboto', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
+    },
   },
   },
   plugins: [],
