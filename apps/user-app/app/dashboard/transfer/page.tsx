@@ -4,16 +4,16 @@ import { BalanceCard } from '../../../components/BalanceCard'
 
 export default async function Transfer() {
     return (
-        <div className='pb-6'>
-            <div className='text-3xl font-poppins font-semibold py-6 bg-gradient-to-r from-[#1d4ed8] via-[#3b82f6] to-[#60a5fa] text-transparent bg-clip-text'>Transfer</div>
-            <div className='flex'>
-                <div className='w-1/2 pr-4'>
+        <div className='pb-8'>
+            <div className='text-3xl font-poppins font-semibold pb-6 md:py-6 bg-gradient-to-r from-[#1d4ed8] via-[#3b82f6] to-[#60a5fa] text-transparent bg-clip-text'>Transfer</div>
+            <div className='grid xl:grid-cols-2 gap-8'>
+                <div>
                     <AddMoneyCard />
                     <div className='mt-8'>
                         <OnRampTransaction />
                     </div>
                 </div>
-                <div className='w-1/2 pl-4'>
+                <div className=''>
                     <BalanceCard />                    
                 </div>
             </div>
