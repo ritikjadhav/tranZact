@@ -31,7 +31,7 @@ export const OnRampTransaction = () => {
                 <div className='flex justify-center'>
                     <img src="/documents.png" alt="documents icon" width={'350px'} />
                 </div>
-                <p className="text-gray-600 text-lg text-center font-poppins">No recent transactions</p>
+                <p className="text-gray-600 dark:text-gray-300 text-lg text-center font-poppins">No recent transactions</p>
             </Card>
         )
     }

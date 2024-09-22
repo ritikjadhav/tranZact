@@ -12,7 +12,7 @@ export function SidebarItem({ links }: { readonly links: Link[] }) {
    const [open, setOpen] = useState(false);
 
    return (
-      <div className='pt-16 md:pl-12'>
+      <div className='pt-16 md:pl-12 dark:bg-customDark-700'>
          <Sidebar open={open} setOpen={setOpen} animate={false}>
             <SidebarBody>
                {links.map((link, index) => (

@@ -32,7 +32,7 @@ export const BalanceCard = () => {
             <div className='flex justify-center'>
                 <img src="/wallet.png" alt="wallet icon" width={'400px'} />
             </div>
-            <p className="text-gray-600 text-lg text-center font-poppins">You have no balance</p>
+            <p className="text-gray-600 dark:text-gray-300 text-lg text-center font-poppins">You have no balance</p>
         </Card>
     }
     
