@@ -1,14 +1,17 @@
 'use client'
+
 import { Card } from '@repo/ui/card'
 import { useEffect, useState } from 'react'
 import { getBalance } from '../lib/actions/getBalance'
 import { Balance } from '@tranzact/store/types'
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { updateOnramp } from '@tranzact/store/updateOnramp'
+import { balanceAtom } from '../../../packages/store/src/atoms/balance'
 
 export const BalanceCard = () => {
     const [balance, setBalance] = useState<Balance>({ amount: 0, locked: 0})
     const updateTrans = useRecoilValue(updateOnramp)
+    const setTotalBalance = useSetRecoilState(balanceAtom)
 
     useEffect(() => {
         const fetchBalance = async () => {
@@ -19,6 +22,7 @@ export const BalanceCard = () => {
                         amount: response.data.amount,
                         locked: response.data.locked,
                     })
+                    setTotalBalance(response.data.amount + response.data.locked)
                 }
             } catch (e) {
                 console.error('Error fetching balance:', e)

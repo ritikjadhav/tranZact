@@ -11,7 +11,9 @@
     "./Select": "./src/Select.tsx",
     "./TextInput": "./src/TextInput.tsx",
     "./AuthHeader": "./src/AuthHeader.tsx",
-    "./AuthProviders": "./src/AuthProviders.tsx"
+    "./AuthProviders": "./src/AuthProviders.tsx",
+    "./PageHeading": "./src/pageHeading.tsx",
+    "./ActionButton": "./src/ActionButton.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

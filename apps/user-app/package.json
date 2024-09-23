@@ -10,7 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@prisma/client": "^5.17.0",
+    "@prisma/client": "^5.19.1",
     "@repo/ui": "*",
     "@tranzact/db": "*",
     "@tranzact/store": "*",
