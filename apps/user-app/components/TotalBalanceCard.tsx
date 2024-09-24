@@ -20,10 +20,10 @@ export const TotalBalanceCard = () => {
                 </div>
                 <div className='flex'>
                     <div className='flex flex-col justify-center'>
-                        <ActionButton label='Add' />
+                        <ActionButton label='Add' route='/dashboard/transfer' />
                     </div>
                     <div className='flex flex-col justify-center ml-4'>
-                        <ActionButton label='Send' />
+                        <ActionButton label='Send' route='/dashboard/p2ptransfer' />
                     </div>
                 </div>
             </div>
