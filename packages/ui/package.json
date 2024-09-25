@@ -13,7 +13,8 @@
     "./AuthHeader": "./src/AuthHeader.tsx",
     "./AuthProviders": "./src/AuthProviders.tsx",
     "./PageHeading": "./src/pageHeading.tsx",
-    "./ActionButton": "./src/ActionButton.tsx"
+    "./ActionButton": "./src/ActionButton.tsx",
+    "./Loader": "./src/Loader.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
