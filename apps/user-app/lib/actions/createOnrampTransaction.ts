@@ -5,6 +5,7 @@ import { createOnrampSchema } from '@tranzact/store/zod'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../auth'
 import crypto from 'crypto'
+import axios from 'axios'
 
 
 export const createOnrampTransaction = async (provider: string, amount: number) => {
@@ -35,7 +36,14 @@ export const createOnrampTransaction = async (provider: string, amount: number) 
                 amount: amount,
                 startTime: new Date()
             }
-        })        
+        })
+        
+        try {            
+            await axios.post('http://localhost:3004/bankWebhook', { token: token })
+            return { message: 'Transaction successful!'}
+        } catch (error) {
+            console.log(error);            
+        }
         return { message: 'Transaction in progress!'}
     } catch (e) {
         return {

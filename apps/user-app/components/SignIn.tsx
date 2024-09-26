@@ -30,9 +30,11 @@ export const SignIn = () => {
     return (
         <div className='sm:w-2/3 lg:w-1/3 mx-6'>
             <AuthHeader label='Sign in' />
-            <TextInput type='text' placeholder='Mobile Number' onChange={(value) => setPhone(value)} />
-            <TextInput type='password' placeholder='Password' onChange={(value) => setPassword(value)} />
-            <Button onClick={handleLogin}>Log In</Button>
+            <form>
+                <TextInput type='text' placeholder='Mobile Number' onChange={(value) => setPhone(value)} />
+                <TextInput type='password' placeholder='Password' onChange={(value) => setPassword(value)} />
+                <Button onClick={handleLogin}>Log In</Button>
+            </form>
             <AuthProviders to='/signup' label='Sign up now' />
         </div>
     )

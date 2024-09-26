@@ -7,6 +7,7 @@ import { Balance } from '@tranzact/store/types'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { updateOnramp } from '@tranzact/store/updateOnramp'
 import { balanceAtom } from '../../../packages/store/src/atoms/balance'
+import { PieDonutChart } from './PieDonutChart'
 
 export const BalanceCard = () => {
     const [balance, setBalance] = useState<Balance>({ amount: 0, locked: 0})
@@ -41,17 +42,26 @@ export const BalanceCard = () => {
     }
     
     return (<Card title='Balance'>
-        <div className='flex justify-between pb-1 mb-4 border-b dark:border-gray-700 text-gray-900 dark:text-white'>
+        <div className='flex justify-between pb-1 mb-4 border-b font-poppins dark:border-gray-700 text-gray-900 dark:text-white'>
             <div>Unlocked Balance</div>
-            <div>{balance.amount} INR</div>
+            <div className='flex items-center'>
+                {balance.amount}
+                <img width='25' className='ml-2' src="https://img.icons8.com/papercut/60/rupee.png" alt="rupee"/>
+            </div>
         </div>
-        <div className='flex justify-between pb-1 mb-4 border-b dark:border-gray-700 text-gray-900 dark:text-white'>
+        <div className='flex justify-between pb-1 mb-4 border-b font-poppins dark:border-gray-700 text-gray-900 dark:text-white'>
             <div>Total Locked Balance</div>
-            <div>{balance.locked} INR</div>
+            <div className='flex items-center'>
+                {balance.locked}
+                <img width='25' className='ml-2' src="https://img.icons8.com/papercut/60/rupee.png" alt="rupee"/>
+            </div>
         </div>
-        <div className='flex justify-between pb-1 mb-4 border-b dark:border-gray-700 text-gray-900 dark:text-white'>
+        <div className='flex justify-between pb-1 mb-4 border-b font-poppins dark:border-gray-700 text-gray-900 dark:text-white'>
             <div>Total Balance</div>
-            <div>{balance.amount + balance.locked} INR</div>
+            <div className='flex items-center'>
+                {balance.amount + balance.locked}
+                <img width='25' className='ml-2' src="https://img.icons8.com/papercut/60/rupee.png" alt="rupee"/>
+            </div>
         </div>
     </Card>)
 }
