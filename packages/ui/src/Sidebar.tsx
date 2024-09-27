@@ -15,6 +15,8 @@ interface SidebarContextProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   animate: boolean;
+  selectedLink: string;
+  setSelectedLink: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const SidebarContext = createContext<SidebarContextProps | undefined>(
@@ -41,12 +43,13 @@ export const SidebarProvider = ({
   animate?: boolean;
 }) => {
   const [openState, setOpenState] = useState(false);
+  const [selectedLink, setSelectedLink] = useState("");
 
   const open = openProp !== undefined ? openProp : openState;
   const setOpen = setOpenProp !== undefined ? setOpenProp : setOpenState;
 
   return (
-    <SidebarContext.Provider value={{ open, setOpen, animate: animate }}>
+    <SidebarContext.Provider value={{ open, setOpen, animate: animate, selectedLink, setSelectedLink }}>
       {children}
     </SidebarContext.Provider>
   );
@@ -89,7 +92,7 @@ export const DesktopSidebar = ({
     <>
       <motion.div
         className={cn(
-          "h-full px-4 py-4 hidden  md:flex md:flex-col bg-100 dark:bg-darkPages w-[250px] flex-shrink-0",
+          "h-full px-4 py-4 hidden  md:flex md:flex-col bg-100 dark:bg-customDark-700 w-[250px] flex-shrink-0",
           className
         )}
         animate={{
@@ -115,7 +118,7 @@ export const MobileSidebar = ({
     <>
       <div
         className={cn(
-          "h-10 px-4 py-4 flex flex-row md:hidden  items-center justify-between bg-neutral-100 dark:bg-darkPages w-full"
+          "h-10 px-4 py-4 flex flex-row md:hidden  items-center justify-between bg-neutral-100 dark:bg-customDarkBg w-full"
         )}
         {...props}
       >
@@ -136,7 +139,7 @@ export const MobileSidebar = ({
                 ease: "easeInOut",
               }}
               className={cn(
-                "fixed h-full w-full inset-0 bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col justify-between",
+                "fixed h-full w-full inset-0 bg-white dark:bg-customDark-700 p-10 z-[100] flex flex-col",
                 className
               )}
             >
@@ -164,14 +167,20 @@ export const SidebarLink = ({
   className?: string;
   props?: LinkProps;
 }) => {
-  const { open, animate } = useSidebar();
+  const { open, animate, selectedLink, setSelectedLink } = useSidebar();
+  const isSelected = selectedLink === link.href;
+
   return (
     <Link
       href={link.href}
       className={cn(
-        "flex items-center justify-start gap-2  group/sidebar py-4",
+        "flex items-center justify-start gap-2 group/sidebar py-6 md:py-4 my-3",
         className
       )}
+      onClick={() => {setSelectedLink(link.href)
+        console.log(selectedLink, 'selectedLink', isSelected);
+        
+      }}
       {...props}
     >
       {link.icon}
@@ -181,7 +190,10 @@ export const SidebarLink = ({
           display: animate ? (open ? "inline-block" : "none") : "inline-block",
           opacity: animate ? (open ? 1 : 0) : 1,
         }}
-        className="text-neutral-700 dark:text-neutral-200 text-base group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+        className={cn(
+          "text-base group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !m-0 fixed pl-7",
+          isSelected ? "text-[#2563eb] font-medium" : "text-neutral-700 dark:text-neutral-200",
+        )}
       >
         {link.label}
       </motion.span>
