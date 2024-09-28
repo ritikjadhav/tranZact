@@ -23,7 +23,10 @@ export const BalanceCard = () => {
                         amount: response.data.amount,
                         locked: response.data.locked,
                     })
-                    setTotalBalance(response.data.amount + response.data.locked)
+                    setTotalBalance({
+                        amount: response.data.amount,
+                        locked: response.data.locked
+                    })
                 }
             } catch (e) {
                 console.error('Error fetching balance:', e)
@@ -41,7 +44,9 @@ export const BalanceCard = () => {
         </Card>
     }
     
-    return (<Card title='Balance'>
+    return (<Card title='balanceCard'>
+        <h1 className="text-xl font-semibold font-poppins text-gray-900 dark:text-white">Balance</h1>
+        <PieDonutChart />
         <div className='flex justify-between pb-1 mb-4 border-b font-poppins dark:border-gray-700 text-gray-900 dark:text-white'>
             <div>Unlocked Balance</div>
             <div className='flex items-center'>
