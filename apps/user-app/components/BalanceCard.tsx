@@ -52,7 +52,7 @@ export const BalanceCard = () => {
             <div className='flex'>
                 Unlocked Balance
                 <div className='cursor-pointer'>
-                    <Tooltip arrow={false} animation="duration-150" content="This is the amount of money that is immediately available for use or transfer.">
+                    <Tooltip arrow={false} className='bg-gray-700 shadow-md shadow-600' animation="duration-150" content="This is the amount of money that is immediately available for use or transfer.">
                         <img width="25" src="https://img.icons8.com/plasticine/100/question-mark.png" alt="question-mark" />
                     </Tooltip>
                 </div>
@@ -66,7 +66,7 @@ export const BalanceCard = () => {
             <div className='flex'>
                 Total Locked Balance
                 <div className='cursor-pointer'>
-                    <Tooltip arrow={false} animation="duration-150" content="This amount is temporarily unavailable for withdrawal or use, possibly due to transaction holds or account restrictions.">
+                    <Tooltip arrow={false} className='bg-gray-700 shadow-md shadow-600' animation="duration-150" content="This amount is temporarily unavailable for withdrawal or use, possibly due to transaction holds or account restrictions.">
                         <img width="25" src="https://img.icons8.com/plasticine/100/question-mark.png" alt="question-mark" />
                     </Tooltip>
                 </div>
