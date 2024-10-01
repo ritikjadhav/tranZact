@@ -34,7 +34,7 @@ export const TextInput = <T extends InputType>({ type, label, placeholder, onCha
             onChange={handleChange}
             type={type}
             placeholder={placeholder}
-            className='font-poppins text-base text-gray-900 w-full my-3 py-3 px-4 rounded-lg placeholder:font-bold placeholder-gray-500 focus:ring-customBlue focus:border-customBlue bg-gray-100 dark:bg-gray-600 dark:placeholder-gray-400 dark:text-white'
+            className='font-poppins text-base text-gray-900 w-full my-3 py-3 px-4 rounded-lg placeholder:font-bold placeholder-gray-500 border-0 focus:border focus:ring-customBlue focus:border-customBlue bg-gray-100 dark:bg-gray-600 dark:placeholder-gray-400 dark:text-white'
         />
     )
 }
