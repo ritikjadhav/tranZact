@@ -39,7 +39,7 @@ export const createOnrampTransaction = async (provider: string, amount: number) 
         })
         
         try {            
-            await axios.post('http://localhost:3004/bankWebhook', { token: token })
+            await axios.post('https://tranzact-bank-web-hook.vercel.app/bankWebhook', { token: token })
             return { message: 'Transaction successful!'}
         } catch (error) {
             console.log(error);            
