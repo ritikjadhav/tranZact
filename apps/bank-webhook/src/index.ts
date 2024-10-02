@@ -6,6 +6,10 @@ const app = express()
 
 app.use(express.json())
 
+app.get('/', (req, res) => {
+    res.send('Bank Webhook') // to test the deployment
+})
+
 app.post('/bankWebhook', async (req, res) => {
     try {
         const result = paymentToken.safeParse(req.body)
