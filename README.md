@@ -1,81 +1,81 @@
-# Turborepo starter
+# Tranzact Payment App
 
-This is an official starter Turborepo.
+This is a monorepo for the Tranzact Payment App, a comprehensive solution for managing transactions, user accounts, and merchant interactions. It leverages modern web technologies and best practices to deliver a robust and scalable application.
 
-## Using this example
+## Project Structure
 
-Run the following command:
+The project is organized into several packages and applications:
+
+### Apps
+
+- **user-app**: Frontend for users, built with [Next.js](https://nextjs.org).
+- **merchant-app**: Frontend for merchants, built with [Next.js](https://nextjs.org).
+- **bank-webhook**: Webhook service for handling bank-related events.
+- **bank-server**: Backend server for banking operations.
+
+### Packages
+
+- **db**: Database schema and migrations using Prisma.
+- **eslint-config**: Shared ESLint configurations.
+- **store**: State management utilities.
+- **typescript-config**: Shared TypeScript configurations.
+- **ui**: Shared React component library.
+
+## Technologies Used
+
+- **TypeScript**: Static type checking.
+- **Next.js**: Server-side rendered React applications.
+- **Prisma**: Database schema management and migrations.
+- **ESLint**: Code linting.
+- **Prettier**: Code formatting.
+- **Turborepo**: Monorepo management and task running.
+- **Tailwind CSS**: Utility-first CSS framework.
+- **React**: User interface building.
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (>=18)
+- npm (>=10.8.1)
+
+### Installation
+
+Clone the repository and install dependencies:
 
 ```sh
-npx create-turbo@latest
+git clone https://github.com/your-repo/tranzact-payment-app.git
+cd tranzact-payment-app
+npm install
 ```
 
-## What's inside?
+### Running the Application
 
-This Turborepo includes the following packages/apps:
+1. **Set Up Environment Variables**  
+   Create a `.env` file in the root directory and add the necessary environment variables:
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+```sh
+DATABASE_URL="your-database-url"
+NEXTAUTH_URL="your-next-auth-url"
+NEXTAUTH_SECRET="your-next-auth-secret"
 ```
 
-### Develop
+2. **Generate Prisma Client**  
+   Run the following command:
 
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
+```sh
+npm run db:generate
 ```
 
-### Remote Caching
+3. **Start the Development Server**  
+   To start the development server for all applications, run:
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+```sh
+npm run dev
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+4. **Access the Applications**  
+   - **User App**: Open [http://localhost:3000](http://localhost:3000)
+   - **Merchant App**: Open [http://localhost:3001](http://localhost:3001)
+   - **Bank Server**: Runs at [http://localhost:3002](http://localhost:3002)
+   - **Bank Webhook**: Runs at [http://localhost:3003](http://localhost:3003)
