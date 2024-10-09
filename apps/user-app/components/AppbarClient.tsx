@@ -11,7 +11,7 @@ export const AppbarClient = () => {
      
     useEffect(() => {
         if (status === 'unauthenticated') {
-            // router.push('/api/auth/signin') // uncomment this line after changing the database url
+            router.push('/signin')
         }
     }, [status, router])
 
@@ -21,7 +21,7 @@ export const AppbarClient = () => {
                 user={session?.user}
                 onSignin={signIn}
                 onSignout={async () => {
-                    await signOut({ callbackUrl: '/api/auth/signin'})
+                    await signOut({ callbackUrl: '/signin'})
                 }}
             />
         </div>

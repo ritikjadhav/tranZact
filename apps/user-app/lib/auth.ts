@@ -72,6 +72,7 @@ export const authOptions = {
         })        
     ],
     pages: {
+        SignUp: '/signup',
         signIn: '/signin',
     },
     callbacks: {
