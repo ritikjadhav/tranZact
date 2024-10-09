@@ -27,17 +27,29 @@ export const createOnrampTransaction = async (provider: string, amount: number) 
             }
         }
         
-        await prisma.onRampTransaction.create({
-            data: {
-                userId: session.user.id,
-                status: 'Processing',
-                token: token,
-                provider: provider,
-                amount: amount,
-                startTime: new Date()
-            }
-        })
-        
+        await prisma.$transaction([
+            prisma.onRampTransaction.create({
+                data: {
+                    userId: session.user.id,
+                    status: 'Processing',
+                    token: token,
+                    provider: provider,
+                    amount: amount,
+                    startTime: new Date()
+                }
+            }),
+            prisma.balance.update({ // remove balance update from here after bank webhook is deployed
+                where: {
+                    userId: session.user.id,
+                },
+                data: {
+                    amount: {
+                        increment: amount,
+                    },
+                },
+            })
+        ])
+            
         try {            
             await axios.post('https://tranzact-bank-web-hook.vercel.app/bankWebhook', { token: token })
             return { message: 'Transaction successful!'}

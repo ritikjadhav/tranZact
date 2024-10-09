@@ -21,13 +21,6 @@ export default function Layout({ children }: Readonly<{
             ),
         },
         {
-            label: "Transactions",
-            href: "/dashboard/transactions",
-            icon: (
-                <IconHistory className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0 fixed" />
-            ),
-        },
-        {
             label: "P2P Transfer",
             href: "/dashboard/p2ptransfer",
             icon: (
