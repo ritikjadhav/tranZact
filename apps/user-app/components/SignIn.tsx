@@ -9,11 +9,20 @@ import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
 export const SignIn = () => {
-    const [phone, setPhone] = useState('');
-    const [password, setPassword] = useState('');
+    const [phone, setPhone] = useState('')
+    const [password, setPassword] = useState('')
+    const [phoneError, setPhoneError] = useState(false)
+    const [passwordError, setPasswordError] = useState(false)
     const router = useRouter()
 
     const handleLogin = async () => {
+        setPhoneError(phone.length < 1)
+        setPasswordError(password.length < 1)
+
+        if (phoneError || passwordError) {
+            return
+        }
+
         const res = await signIn('credentials', {
             redirect: false,
             phone,
@@ -31,8 +40,26 @@ export const SignIn = () => {
         <div className='sm:w-2/3 lg:w-1/3 mx-6'>
             <AuthHeader label='Sign in' />
             <form>
-                <TextInput type='text' placeholder='Mobile Number' onChange={(value) => setPhone(value)} />
-                <TextInput type='password' placeholder='Password' onChange={(value) => setPassword(value)} />
+                <TextInput
+                    type='text'
+                    placeholder='Mobile Number'
+                    required
+                    emptyInputError={phoneError}
+                    onChange={(value) => {
+                        setPhone(value)
+                        setPhoneError(value.length < 1)
+                    }}
+                />
+                <TextInput
+                    type='password'
+                    placeholder='Password'
+                    required
+                    emptyInputError={passwordError}
+                    onChange={(value) => {
+                        setPassword(value)
+                        setPasswordError(value.length < 1)
+                    }}
+                />
                 <Button onClick={handleLogin}>Log In</Button>
             </form>
             <AuthProviders to='/signup' label='Sign up now' />
