@@ -29,7 +29,7 @@ export const TotalBalanceCard = () => {
 
     return (
         <Card title='totalBalance' >
-            <div className='flex justify-between'>
+            <div className='flex flex-col lg:flex-row justify-between'>
                 <div className='font-poppins dark:text-white'>
                     <div className='text-xl mb-3'>Total Balance</div>
                     <div className='flex text-5xl'>
@@ -37,7 +37,7 @@ export const TotalBalanceCard = () => {
                         {balance.amount + balance.locked}
                     </div>
                 </div>
-                <div className='flex'>
+                <div className='flex justify-center pt-4 lg:pt-0'>
                     <div className='flex flex-col justify-center'>
                         <ActionButton label='Add' route='/dashboard/transfer' />
                     </div>
